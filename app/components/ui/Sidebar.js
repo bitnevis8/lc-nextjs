@@ -17,7 +17,7 @@ const menuItems = [
     icon: '🏠',
   },
   {
-    title: 'زمان‌بندی',
+    title: 'نوبت‌دهی',
     path: '/dashboard/schedule',
     icon: '🗓️',
   },

@@ -8,6 +8,8 @@ export default function UnitLocationsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [form, setForm] = useState({ id: null, name: "", address: "", phone: "", mobile: "", managerPhone: "", latitude: null, longitude: null, openTime: "", closeTime: "" });
+  // سوشال‌ها
+  const [social, setSocial] = useState({ instagram: "", telegram: "", whatsapp: "" });
   const [saving, setSaving] = useState(false);
   const [mapReloadIndex, setMapReloadIndex] = useState(0);
   const [showMap, setShowMap] = useState(true);
@@ -39,11 +41,12 @@ export default function UnitLocationsPage() {
         method,
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, ...social }),
       });
       const data = await res.json();
       if (data.success) {
         setForm({ id: null, name: "", address: "", phone: "", mobile: "", managerPhone: "", latitude: null, longitude: null, openTime: "", closeTime: "" });
+        setSocial({ instagram: "", telegram: "", whatsapp: "" });
         await load();
       } else {
         setError(data.message || "خطا در ذخیره");
@@ -86,7 +89,8 @@ export default function UnitLocationsPage() {
             <div className="mt-3 flex gap-2">
               <button
                 onClick={()=>{ 
-                  setForm({ id: item.id, name: item.name, address: item.address, phone: item.phone, mobile: item.mobile, managerPhone: item.managerPhone || "", latitude: item.latitude ? Number(item.latitude) : null, longitude: item.longitude ? Number(item.longitude) : null, openTime: item.openTime || "", closeTime: item.closeTime || "" }); 
+                    setForm({ id: item.id, name: item.name, address: item.address, phone: item.phone, mobile: item.mobile, managerPhone: item.managerPhone || "", latitude: item.latitude ? Number(item.latitude) : null, longitude: item.longitude ? Number(item.longitude) : null, openTime: item.openTime || "", closeTime: item.closeTime || "" }); 
+                    setSocial({ instagram: item.instagram || "", telegram: item.telegram || "", whatsapp: item.whatsapp || "" });
                   setShowMap(false);
                   setTimeout(()=>{ setMapReloadIndex((v)=>v+1); setShowMap(true); }, 50);
                 }}
@@ -164,6 +168,18 @@ export default function UnitLocationsPage() {
           <div>
             <label className="block text-sm mb-1">شماره مدیریت پایخان</label>
             <input value={form.managerPhone} onChange={(e)=>setForm({...form,managerPhone:e.target.value})} className="w-full border rounded-md px-3 py-2" />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Instagram (URL)</label>
+            <input value={social.instagram} onChange={(e)=>setSocial({...social, instagram:e.target.value})} className="w-full border rounded-md px-3 py-2 ltr:font-mono" />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Telegram (URL)</label>
+            <input value={social.telegram} onChange={(e)=>setSocial({...social, telegram:e.target.value})} className="w-full border rounded-md px-3 py-2 ltr:font-mono" />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">WhatsApp (URL)</label>
+            <input value={social.whatsapp} onChange={(e)=>setSocial({...social, whatsapp:e.target.value})} className="w-full border rounded-md px-3 py-2 ltr:font-mono" />
           </div>
         </div>
 
