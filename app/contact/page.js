@@ -73,7 +73,7 @@ export default function ContactPage() {
                   <div className="text-gray-800 text-base md:text-lg">{b.mobile || '—'}</div>
                 </div>
                 <div>
-                  <div className="text-gray-600">پایخان</div>
+                  <div className="text-gray-600">مدیریت پایخان</div>
                   <div className="text-gray-800 text-base md:text-lg">{b.managerPhone || '—'}</div>
                 </div>
                 <div>
