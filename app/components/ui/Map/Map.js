@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
+import SearchBox from './SearchBox';
 
 // Dynamic imports for Leaflet components
 const MapContainer = dynamic(
@@ -19,6 +20,27 @@ const Marker = dynamic(
 );
 const Popup = dynamic(
   () => import('react-leaflet').then((mod) => mod.Popup),
+  { ssr: false }
+);
+
+// به‌روزرسانی نقشه هنگام تغییر مرکز و اطمینان از invalidateSize
+const MapUpdater = dynamic(
+  () => import('react-leaflet').then((mod) => {
+    const { useMap } = mod;
+    return function MapUpdater({ position }) {
+      const map = useMap();
+      useEffect(() => {
+        if (!map || !position) return;
+        try {
+          map.setView(position, map.getZoom());
+          setTimeout(() => {
+            try { map.invalidateSize(); } catch {}
+          }, 50);
+        } catch {}
+      }, [map, position]);
+      return null;
+    };
+  }),
   { ssr: false }
 );
 
@@ -57,8 +79,26 @@ const MapEvents = dynamic(
   { ssr: false }
 );
 
+// اطمینان از رندر صحیح تایل‌ها پس از تغییر اندازه/چیدمان
+const InvalidateSize = dynamic(
+  () => import('react-leaflet').then((mod) => {
+    const { useMap } = mod;
+    return function InvalidateSize({ deps = [] }) {
+      const map = useMap();
+      useEffect(() => {
+        const t = setTimeout(() => {
+          try { map.invalidateSize(); } catch {}
+        }, 50);
+        return () => clearTimeout(t);
+      }, deps); // eslint-disable-line react-hooks/exhaustive-deps
+      return null;
+    };
+  }),
+  { ssr: false }
+);
+
 const Map = ({
-  center = [35.7219, 51.3347], // تهران به عنوان مرکز پیش‌فرض
+  center = [32.383, 48.4], // دزفول به عنوان مرکز پیش‌فرض
   zoom = 13,
   markers = [],
   onMarkerClick,
@@ -68,8 +108,35 @@ const Map = ({
   className = '',
   showControls = true,
   draggable = true,
+  showSearch = true,
 }) => {
   const [selectedPosition, setSelectedPosition] = useState(null);
+  const [mapCenter, setMapCenter] = useState(center);
+  const [mapInstance, setMapInstance] = useState(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    setMapCenter(center);
+  }, [center]);
+
+  // اطمینان از بازترسیم تایل‌ها پس از تغییر مرکز یا انتخاب مارکر/ویرایش
+  useEffect(() => {
+    if (!mapInstance) return;
+    const t = setTimeout(() => {
+      try { mapInstance.invalidateSize(); } catch {}
+    }, 80);
+    return () => clearTimeout(t);
+  }, [mapInstance, mapCenter, selectedPosition, markers?.length]);
+
+  // بازترسیم هنگام تغییر اندازه کانتینر
+  useEffect(() => {
+    if (!containerRef.current || !mapInstance) return;
+    const ro = new ResizeObserver(() => {
+      try { mapInstance.invalidateSize(); } catch {}
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, [mapInstance]);
 
   useEffect(() => {
     // رفع مشکل آیکون‌های پیش‌فرض Leaflet
@@ -92,16 +159,42 @@ const Map = ({
   return (
     <div 
       style={{ height, width }} 
-      className={`rounded-lg overflow-hidden ${className}`}
+      className={`rounded-lg overflow-hidden relative ${className}`}
+      ref={containerRef}
     >
+      {showSearch && (
+        <div className="absolute top-2 right-2 z-[1000] w-[min(360px,90%)]">
+          <SearchBox
+            onSearchSelect={(coords) => {
+              setMapCenter(coords);
+              setSelectedPosition(coords);
+              if (onMapClick) {
+                onMapClick({ latitude: coords[0], longitude: coords[1] });
+              }
+            }}
+          />
+        </div>
+      )}
       <MapContainer
-        center={center}
+        center={mapCenter}
         zoom={zoom}
         style={{ height: '100%', width: '100%', zIndex: 0 }}
         zoomControl={showControls}
         attributionControl={showControls}
+        whenCreated={(m) => {
+          setMapInstance(m);
+          try {
+            m.whenReady(() => {
+              setTimeout(() => {
+                try { m.invalidateSize(); } catch {}
+              }, 120);
+            });
+          } catch {}
+        }}
       >
-        <ChangeView center={center} zoom={zoom} />
+        <MapUpdater position={mapCenter} />
+        <InvalidateSize deps={[mapCenter]} />
+        <ChangeView center={mapCenter} zoom={zoom} />
         <MapEvents onMapClick={handleMapClick} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

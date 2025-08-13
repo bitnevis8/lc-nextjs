@@ -139,16 +139,7 @@ export default function DashboardLayout({ children }) {
       <main className={`flex-1 overflow-y-auto p-4 md:p-6 transition-all duration-300 ease-in-out
         ${isSidebarOpen ? 'md:mr-64' : 'md:mr-0'}`}
       >
-        {user && (
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow-sm transition duration-150 ease-in-out"
-            >
-              خروج
-            </button>
-          </div>
-        )}
+        {/* خروج از داشبورد حذف شد؛ از منوی هدر استفاده می‌شود */}
         {user && user.email && !user.isEmailVerified && (
           <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
             <p className="font-bold">ایمیل شما تایید نشده است!</p>

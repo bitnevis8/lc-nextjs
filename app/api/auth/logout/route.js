@@ -11,6 +11,7 @@ export async function POST(request) {
       credentials: 'include',
     });
 
+    const setCookieHeader = backendResponse.headers.get('set-cookie');
     const data = await backendResponse.json();
 
     const response = new Response(JSON.stringify(data), {
@@ -20,10 +21,12 @@ export async function POST(request) {
       },
     });
 
-    response.headers.set(
-      'Set-Cookie',
-      'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax; Secure=false'
-    );
+    if (setCookieHeader) {
+      response.headers.append('Set-Cookie', setCookieHeader);
+    } else {
+      // Fallback: clear cookie at frontend domain scope
+      response.headers.set('Set-Cookie', 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=None; Secure');
+    }
 
     return response;
   } catch (error) {

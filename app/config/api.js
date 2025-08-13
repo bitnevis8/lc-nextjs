@@ -6,9 +6,8 @@ console.log('Current environment:', process.env.NODE_ENV); // برای دیبا�
 let API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 if (!API_BASE_URL) {
   if (!isDevelopment) {
-    // هشدار برای لاگ سرور
-    console.warn('⚠️ NEXT_PUBLIC_API_URL is not set! Defaulting to https://api.taganeh.ir');
-    API_BASE_URL = 'https://api.taganeh.ir';
+    console.warn('⚠️ NEXT_PUBLIC_API_URL is not set! Defaulting to https://lc-api.pourdian.com');
+    API_BASE_URL = 'https://lc-api.pourdian.com';
   } else {
     API_BASE_URL = 'http://localhost:3000';
   }
@@ -169,6 +168,24 @@ export const API_ENDPOINTS = {
     updateBySlug: (slug) => `${API_BASE_URL}/location/updateBySlug/${encodeURIComponent(slug)}`,
     delete: (id) => `${API_BASE_URL}/location/delete/${id}`,
     deleteBySlug: (slug) => `${API_BASE_URL}/location/deleteBySlug/${encodeURIComponent(slug)}`,
+  },
+  // زمان‌بندی
+  schedule: {
+    base: `${API_BASE_URL}/schedule`,
+    getAll: `${API_BASE_URL}/schedule/getAll`,
+    getById: (id) => `${API_BASE_URL}/schedule/getOne/${id}`,
+    create: `${API_BASE_URL}/schedule/create`,
+    update: (id) => `${API_BASE_URL}/schedule/update/${id}`,
+    delete: (id) => `${API_BASE_URL}/schedule/delete/${id}`,
+  },
+  // شعب (مدیریت مراکز)
+  branches: {
+    base: `${API_BASE_URL}/branch`,
+    getAll: `${API_BASE_URL}/branch/getAll`,
+    getById: (id) => `${API_BASE_URL}/branch/getOne/${id}`,
+    create: `${API_BASE_URL}/branch/create`,
+    update: (id) => `${API_BASE_URL}/branch/update/${id}`,
+    delete: (id) => `${API_BASE_URL}/branch/delete/${id}`,
   },
   // کلاس تگ‌ها - حذف شده
   classTags: {

@@ -17,6 +17,11 @@ const menuItems = [
     icon: '🏠',
   },
   {
+    title: 'زمان‌بندی',
+    path: '/dashboard/schedule',
+    icon: '🗓️',
+  },
+  {
     title: 'تنظیمات',
     icon: '⚙️',
     submenu: [
@@ -47,10 +52,8 @@ export default function Sidebar({ onLinkClick }) {
   };
 
   return (
-    <aside className="w-64 h-screen bg-gray-800 text-white p-4">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-center text-red-50">تگانه</h1>
-      </div>
+    <aside className="w-64 h-screen border-l-2 border-pink-200 bg-white text-rose-500 p-4 fixed md:relative top-0 right-0 z-40 md:z-auto">
+ 
       
       <nav className="space-y-2">
         {menuItems.map((item) => (
@@ -59,8 +62,8 @@ export default function Sidebar({ onLinkClick }) {
               <div>
                 <button
                   onClick={() => toggleMenu(item.title)}
-                  className={`w-full flex items-center justify-between p-2 rounded-lg hover:bg-gray-700 transition-colors ${
-                    openMenu === item.title ? 'bg-gray-700' : ''
+                  className={`w-full flex items-center justify-between p-2 rounded-lg hover:bg-pink-700 hover:text-amber-50 transition-colors ${
+                    openMenu === item.title ? 'bg-pink-700 text-white' : ''
                   }`}
                 >
                   <div className="flex items-center">
@@ -79,8 +82,8 @@ export default function Sidebar({ onLinkClick }) {
                         key={subItem.path}
                         href={subItem.path}
                         onClick={onLinkClick}
-                        className={`flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${
-                          isActive(subItem.path) ? 'bg-gray-700' : ''
+                        className={`flex items-center p-2 rounded-lg hover:bg-pink-700 transition-colors ${
+                          isActive(subItem.path) ? 'bg-pink-700 text-amber-50' : ''
                         }`}
                       >
                         <span className="ml-2">{subItem.icon}</span>
@@ -94,8 +97,8 @@ export default function Sidebar({ onLinkClick }) {
               <Link
                 href={item.path}
                 onClick={onLinkClick}
-                className={`flex items-center p-2 rounded-lg hover:bg-gray-700 transition-colors ${
-                  isActive(item.path) ? 'bg-gray-700' : ''
+                className={`flex items-center p-2 rounded-lg hover:bg-pink-700 hover:text-amber-50 transition-colors ${
+                  isActive(item.path) ? 'bg-pink-700 text-amber-50' : ''
                 }`}
               >
                 <span className="ml-2">{item.icon}</span>

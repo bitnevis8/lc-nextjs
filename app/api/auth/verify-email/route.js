@@ -12,14 +12,21 @@ export async function POST(request) {
       body: JSON.stringify(body),
     });
 
+    const setCookieHeader = backendResponse.headers.get('set-cookie');
     const data = await backendResponse.json();
-    
-    return new Response(JSON.stringify(data), {
+
+    const response = new Response(JSON.stringify(data), {
       status: backendResponse.status,
       headers: {
         'Content-Type': 'application/json',
       },
     });
+
+    if (setCookieHeader) {
+      response.headers.append('Set-Cookie', setCookieHeader);
+    }
+
+    return response;
   } catch (error) {
     console.error("Error proxying verify-email request:", error);
     return new Response(JSON.stringify({ success: false, message: "Internal Server Error" }), {

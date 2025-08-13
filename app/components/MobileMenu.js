@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/app/context/AuthContext';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <div className="md:hidden">
@@ -26,63 +28,17 @@ export default function MobileMenu() {
       {isOpen && (
         <div className="absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link
-              href="/auth/login"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              ورود
-            </Link>
-            <Link
-              href="/auth/register"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              ثبت نام
-            </Link>
-            <Link
-              href="/"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              صفحه اصلی
-            </Link>
-            {/* <Link
-              href="/categories"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              دسته‌بندی‌ها
-            </Link> */}
-            {/* Upload link removed as requested */}
-            {/* <Link
-              href="/agencies"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              منابع خبری
-            </Link> */}
-            <Link
-              href="/location"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              مکان‌ها
-            </Link>
-            {/* <Link
-              href="/about"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200"
-              onClick={() => setIsOpen(false)}
-              prefetch={true}
-            >
-              درباره ما
-            </Link> */}
+            {!user ? (
+              <>
+                <Link href="/auth/login" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50" onClick={() => setIsOpen(false)} prefetch={true}>ورود</Link>
+                <Link href="/auth/register" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50" onClick={() => setIsOpen(false)} prefetch={true}>ثبت نام</Link>
+              </>
+            ) : (
+              <>
+                <Link href="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50" onClick={() => setIsOpen(false)} prefetch={true}>داشبورد</Link>
+                <Link href="/api/auth/logout" className="block px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50" onClick={() => setIsOpen(false)} prefetch={false}>خروج</Link>
+              </>
+            )}
           </div>
         </div>
       )}
