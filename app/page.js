@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Slider from './components/ui/Slider/Slider';
 
 export default async function Home() {
   return (
@@ -73,6 +74,16 @@ export default async function Home() {
       {/* Branches CTA */}
       <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+          {/* Gallery slider */}
+          <div className="mb-10">
+            <Slider
+              images={[
+                { src: '/images/gallery/1.jpg', alt: 'Laser Clinic gallery 1' },
+                { src: '/images/gallery/2.jpg', alt: 'Laser Clinic gallery 2' },
+              ]}
+              autoAdvanceMs={6000}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             <div>
               <h3 className="text-xl font-bold text-black">برای گرفتن نوبت بر روی ارتباط با ما کلیک کنید</h3>
@@ -122,7 +133,7 @@ export default async function Home() {
                 <div className="text-black font-semibold">{s.title}</div>
                 <div className="text-black text-sm mt-2 leading-7">{s.desc}</div>
                 <div className="mt-4">
-                  <Link href="/auth/register" className="text-black hover:opacity-80 text-sm font-semibold">رزرو این خدمت →</Link>
+                  <Link href="/contact" className="text-black hover:opacity-80 text-sm font-semibold">دریافت نوبت →</Link>
                 </div>
               </div>
             ))}
