@@ -77,8 +77,8 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Mobile Menu */}
-          <div className="md:hidden">
+          {/* Mobile Menu (left on mobile) */}
+          <div className="md:hidden mr-auto">
             <MobileMenu />
           </div>
         </div>
