@@ -57,6 +57,19 @@ export default function ContactPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 space-y-8">
       <h1 className="text-3xl md:text-3xl font-extrabold">تماس با ما</h1>
+      {branches.length > 0 && (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
+       
+          <div className="space-y-2">
+            {branches.slice(0, 2).map((b, idx) => (
+              <div key={b.id || idx} className="grid grid-cols-2">
+                <div className="text-right font-semibold text-rose-700 truncate">{b.name || '—'}</div>
+                <div className="text-left text-gray-800 ltr:font-mono">{b.mobile || '—'}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {branches.map((b, idx) => (
         <div key={b.id || idx} className="rounded-2xl border border-rose-100 overflow-hidden bg-white">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">

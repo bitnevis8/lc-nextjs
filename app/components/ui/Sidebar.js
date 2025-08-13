@@ -52,9 +52,7 @@ export default function Sidebar({ onLinkClick }) {
   };
 
   return (
-    <aside className="w-64 h-screen border-l-2 border-pink-200 bg-white text-rose-500 p-4 fixed md:relative top-0 right-0 z-40 md:z-auto">
- 
-      
+    <div className="w-64 h-full border-l-2 border-pink-200 bg-white text-rose-500 p-4">
       <nav className="space-y-2">
         {menuItems.map((item) => (
           <div key={item.title} className="space-y-1">
@@ -108,6 +106,6 @@ export default function Sidebar({ onLinkClick }) {
           </div>
         ))}
       </nav>
-    </aside>
+    </div>
   );
 } 
