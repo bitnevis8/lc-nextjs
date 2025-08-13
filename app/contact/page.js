@@ -93,7 +93,7 @@ export default function ContactPage() {
                   <div className="text-gray-800">{b.address || '—'}</div>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div><div className="text-gray-600">تلفن</div><div className="text-gray-900 ltr:font-mono">{b.phone || '—'}</div></div>
-                    <div><div className="text-gray-600">همراه</div><div className="text-gray-900 ltr:font-mono">{b.mobile || '—'}</div></div>
+                    <div><div className="text-gray-600">شماره نوبت‌دهی</div><div className="text-gray-900 ltr:font-mono">{b.mobile || '—'}</div></div>
                     <div><div className="text-gray-600">مدیریت پایخوان</div><div className="text-gray-900 ltr:font-mono">{b.managerPhone || '—'}</div></div>
                     <div><div className="text-gray-600">ساعت کاری</div><div className="text-gray-900">{(b.openTime?.slice(0,5) || '—')} تا {(b.closeTime?.slice(0,5) || '—')}</div></div>
                   </div>
@@ -132,7 +132,7 @@ export default function ContactPage() {
                     <div className="text-gray-900">{b.phone || '—'}</div>
                   </div>
                   <div>
-                    <div className="text-gray-700">همراه</div>
+                    <div className="text-gray-700">شماره نوبت‌دهی</div>
                     <div className="text-gray-900">{b.mobile || '—'}</div>
                   </div>
                   <div>

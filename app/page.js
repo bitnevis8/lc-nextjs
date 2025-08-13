@@ -11,9 +11,40 @@ export default async function Home() {
               <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight pt-5 lg:pt-0 text-gray-900">
                 کلینیک تخصصی لیزر ان سی
               </h1>
-              <p className="mt-4 text-gray-900 text-base sm:text-lg leading-8">
-                از بین بردن موهای زائد با دستگاه‌های روز، تیم حرفه‌ای و مراقبت‌های پس از درمان. نوبت‌گیری آنلاین، مشاوره تخصصی و پکیج‌های ویژه برای شما.
-              </p>
+              <div className="mt-4 text-gray-900 text-base sm:text-lg leading-8 space-y-4">
+                <h2 className="text-xl font-bold">خدمات ما</h2>
+                <div className="space-y-2">
+                  <div className="font-semibold">1) لیزر مو زائد با دستگاه الکساندرایت دکا 2025 ایتالیایی</div>
+                  <ul className="list-disc pr-5 space-y-1 text-base">
+                    <li>جواب‌دهی حتی در جلسه اول</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-semibold">2) دستگاه کیو سوئچ</div>
+                  <ul className="list-disc pr-5 space-y-1 text-base">
+                    <li>از بین بردن کک‌ومک</li>
+                    <li>از بین بردن ماه‌گرفتگی</li>
+                    <li>پاک کردن تتو</li>
+                    <li>روشن‌سازی پوست</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-semibold">3) هایفوتراپی</div>
+                  <div className="text-sm text-gray-700">با دستگاه گلدن کره‌ای و حضور خود دکتر</div>
+                  <ul className="list-disc pr-5 space-y-1 text-base">
+                    <li>جوان‌سازی</li>
+                    <li>رفع غبغب</li>
+                    <li>ایجاد و تقویت زاویه فک</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-semibold">4) الکترولیز</div>
+                  <ul className="list-disc pr-5 space-y-1 text-base">
+                    <li>حذف دائم موهای سفید</li>
+                    <li>برداشتن خال‌های سطحی</li>
+                  </ul>
+                </div>
+              </div>
               <div className="mt-6 flex items-center gap-3">
                 <Link href="/auth/register" className="px-5 py-3 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition">زمان های نوبت دهی</Link>
                 <Link href="/contact" className="px-5 py-3 rounded-lg border border-rose-300 text-rose-700 hover:bg-rose-50 transition">ارتباط با ما</Link>
