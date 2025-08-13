@@ -76,7 +76,7 @@ export default function ContactPage() {
             <div className="p-6 space-y-3">
               <div className="text-rose-700 font-bold text-xl md:text-2xl">{b.name}</div>
               <div className="text-gray-600 text-base md:text-lg">{b.address || '—'}</div>
-              <div className="grid grid-cols-2 gap-3 text-sm md:text-base">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm md:text-base">
                 <div>
                   <div className="text-gray-600">تلفن</div>
                   <div className="text-gray-800 text-base md:text-lg">{b.phone || '—'}</div>
@@ -89,7 +89,7 @@ export default function ContactPage() {
                   <div className="text-gray-600">مدیریت پایخان</div>
                   <div className="text-gray-800 text-base md:text-lg">{b.managerPhone || '—'}</div>
                 </div>
-                <div>
+                <div className="md:col-span-3">
                   <div className="text-gray-600">ساعت کاری</div>
                   <div className="text-gray-800 text-base md:text-lg">{(b.openTime?.slice(0,5) || '—')} تا {(b.closeTime?.slice(0,5) || '—')}</div>
                 </div>

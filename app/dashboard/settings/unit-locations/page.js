@@ -65,34 +65,72 @@ export default function UnitLocationsPage() {
     <div className="space-y-6">
       <h1 className="text-xl font-bold">مدیریت مراکز</h1>
 
-      {/* لیست شعب در بالا */}
-      <div className="bg-white rounded-md border overflow-hidden">
-        <table className="min-w-full">
+      {/* لیست شعب - موبایل (کارت‌ها) */}
+      <div className="space-y-3 md:hidden">
+        {list.length === 0 && (
+          <div className="bg-white rounded-md border p-4 text-center text-gray-500">موردی موجود نیست</div>
+        )}
+        {list.map(item => (
+          <div key={item.id} className="bg-white rounded-md border p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <div className="font-bold text-rose-700 text-base">{item.name}</div>
+              <div className="text-xs text-gray-500">
+                {item.latitude && item.longitude ? `${Number(item.latitude).toFixed(3)}, ${Number(item.longitude).toFixed(3)}` : ''}
+              </div>
+            </div>
+            <div className="space-y-1 text-sm text-gray-700">
+              <div><span className="text-gray-500">تلفن: </span>{item.phone || '-'}</div>
+              <div><span className="text-gray-500">همراه: </span>{item.mobile || '-'}</div>
+              <div className="break-words"><span className="text-gray-500">آدرس: </span>{item.address || '-'}</div>
+            </div>
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={()=>{ 
+                  setForm({ id: item.id, name: item.name, address: item.address, phone: item.phone, mobile: item.mobile, managerPhone: item.managerPhone || "", latitude: item.latitude ? Number(item.latitude) : null, longitude: item.longitude ? Number(item.longitude) : null, openTime: item.openTime || "", closeTime: item.closeTime || "" }); 
+                  setShowMap(false);
+                  setTimeout(()=>{ setMapReloadIndex((v)=>v+1); setShowMap(true); }, 50);
+                }}
+                className="flex-1 px-3 py-2 rounded-md border border-rose-300 text-rose-700 hover:bg-rose-50 text-sm"
+              >ویرایش</button>
+              <button
+                onClick={()=>onDelete(item.id)}
+                className="px-3 py-2 rounded-md border border-red-300 text-red-600 hover:bg-red-50 text-sm"
+              >حذف</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* لیست شعب - دسکتاپ (جدول) */}
+      <div className="bg-white rounded-md border overflow-x-auto hidden md:block">
+        <table className="min-w-full table-auto">
           <thead className="bg-gray-50 text-sm text-gray-700">
             <tr>
-              <th className="px-3 py-2">نام</th>
-              <th className="px-3 py-2">تلفن</th>
-              <th className="px-3 py-2">همراه</th>
-              <th className="px-3 py-2">آدرس</th>
-              <th className="px-3 py-2">موقعیت</th>
-              <th className="px-3 py-2">عملیات</th>
+              <th className="px-3 py-2 text-right whitespace-nowrap">نام</th>
+              <th className="px-3 py-2 text-right whitespace-nowrap">تلفن</th>
+              <th className="px-3 py-2 text-right whitespace-nowrap">همراه</th>
+              <th className="px-3 py-2 text-right">آدرس</th>
+              <th className="px-3 py-2 text-right whitespace-nowrap">موقعیت</th>
+              <th className="px-3 py-2 text-right whitespace-nowrap">عملیات</th>
             </tr>
           </thead>
           <tbody>
             {list.map(item => (
               <tr key={item.id} className="border-t text-sm">
-                <td className="px-3 py-2">{item.name}</td>
-                <td className="px-3 py-2">{item.phone || '-'}</td>
-                <td className="px-3 py-2">{item.mobile || '-'}</td>
-                <td className="px-3 py-2">{item.address || '-'}</td>
-                <td className="px-3 py-2">{item.latitude && item.longitude ? `${Number(item.latitude).toFixed(5)}, ${Number(item.longitude).toFixed(5)}` : '-'}</td>
-                <td className="px-3 py-2 flex gap-2">
-                  <button onClick={()=>{ 
-                    setForm({ id: item.id, name: item.name, address: item.address, phone: item.phone, mobile: item.mobile, managerPhone: item.managerPhone || "", latitude: item.latitude ? Number(item.latitude) : null, longitude: item.longitude ? Number(item.longitude) : null, openTime: item.openTime || "", closeTime: item.closeTime || "" }); 
-                    setShowMap(false);
-                    setTimeout(()=>{ setMapReloadIndex((v)=>v+1); setShowMap(true); }, 50);
-                  }} className="px-2 py-1 border rounded-md">ویرایش</button>
-                  <button onClick={()=>onDelete(item.id)} className="px-2 py-1 border rounded-md text-red-600">حذف</button>
+                <td className="px-3 py-2 align-top">{item.name}</td>
+                <td className="px-3 py-2 align-top">{item.phone || '-'}</td>
+                <td className="px-3 py-2 align-top">{item.mobile || '-'}</td>
+                <td className="px-3 py-2 align-top max-w-[340px] break-words">{item.address || '-'}</td>
+                <td className="px-3 py-2 align-top whitespace-nowrap">{item.latitude && item.longitude ? `${Number(item.latitude).toFixed(5)}, ${Number(item.longitude).toFixed(5)}` : '-'}</td>
+                <td className="px-3 py-2 align-top">
+                  <div className="flex gap-2">
+                    <button onClick={()=>{ 
+                      setForm({ id: item.id, name: item.name, address: item.address, phone: item.phone, mobile: item.mobile, managerPhone: item.managerPhone || "", latitude: item.latitude ? Number(item.latitude) : null, longitude: item.longitude ? Number(item.longitude) : null, openTime: item.openTime || "", closeTime: item.closeTime || "" }); 
+                      setShowMap(false);
+                      setTimeout(()=>{ setMapReloadIndex((v)=>v+1); setShowMap(true); }, 50);
+                    }} className="px-3 py-1 border rounded-md">ویرایش</button>
+                    <button onClick={()=>onDelete(item.id)} className="px-3 py-1 border rounded-md text-red-600">حذف</button>
+                  </div>
                 </td>
               </tr>
             ))}
