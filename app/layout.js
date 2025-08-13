@@ -13,35 +13,35 @@ const vazirmatn = Vazirmatn({
 
 export const metadata = {
   title: {
-    default: "تگانه - موتور جستجوی فارسی اخبار",
-    template: "%s | تگانه"
+    default: "Laser Clinic LC - کلینیک لیزر",
+    template: "%s | Laser Clinic LC"
   },
-  description: "تگانه، سریع‌ترین موتور جستجوگر خبر ایران که اخبار لحظه به لحظه را از معتبرترین خبرگزاری‌های پارسی‌زبان گردآوری می‌کند. اخبار سیاسی، اقتصادی، ورزشی، فرهنگی و اجتماعی ایران و جهان.",
-  keywords: ["اخبار", "خبر", "اخبار ایران", "اخبار جهان", "موتور جستجو", "خبرگزاری", "اخبار سیاسی", "اخبار اقتصادی", "اخبار ورزشی"],
-  authors: [{ name: "تگانه" }],
-  creator: "تگانه",
-  publisher: "تگانه",
+  description: "Laser Clinic LC | کلینیک تخصصی لیزر موهای زائد با دستگاه‌های به‌روز، اپراتورهای حرفه‌ای و نوبت‌گیری آنلاین.",
+  keywords: ["کلینیک لیزر", "Laser Clinic", "لیزر موهای زائد", "رزرو نوبت لیزر", "لیزر بیکینی", "لیزر فول بادی"],
+  authors: [{ name: "Laser Clinic LC" }],
+  creator: "Laser Clinic LC",
+  publisher: "Laser Clinic LC",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://taganeh.ir'),
+  metadataBase: new URL('https://lc.pourdian.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: "تگانه - موتور جستجوی فارسی اخبار",
-    description: "سریع‌ترین موتور جستجوگر خبر ایران که اخبار لحظه به لحظه را از معتبرترین خبرگزاری‌های پارسی‌زبان گردآوری می‌کند.",
-    url: 'https://taganeh.ir',
-    siteName: 'تگانه',
+    title: "Laser Clinic LC - کلینیک لیزر",
+    description: "کلینیک تخصصی لیزر موهای زائد با دستگاه‌های به‌روز و اپراتورهای حرفه‌ای.",
+    url: 'https://lc.pourdian.com',
+    siteName: 'Laser Clinic LC',
     locale: 'fa_IR',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "تگانه - موتور جستجوی فارسی اخبار",
-    description: "سریع‌ترین موتور جستجوگر خبر ایران",
+    title: "Laser Clinic LC - کلینیک لیزر",
+    description: "کلینیک تخصصی لیزر موهای زائد",
   },
   robots: {
     index: true,

@@ -8,6 +8,32 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const buildMapsUrls = (b) => {
+    const lat = Number(b.latitude);
+    const lon = Number(b.longitude);
+    const label = encodeURIComponent(b.name || 'Branch');
+    return {
+      google: `https://www.google.com/maps?q=${lat},${lon}(${label})`,
+      geo: `geo:${lat},${lon}?q=${lat},${lon}(${label})`,
+    };
+  };
+
+  const handleShare = async (b) => {
+    const { google } = buildMapsUrls(b);
+    const title = b.name || 'موقعیت شعبه';
+    const text = `${title}${b.address ? `\n${b.address}` : ''}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, text, url: google });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(google);
+        alert('لینک موقعیت در کلیپ‌بورد کپی شد');
+      } else {
+        window.open(google, '_blank');
+      }
+    } catch (_) {}
+  };
+
   useEffect(() => {
     const load = async () => {
       try {
@@ -54,6 +80,11 @@ export default function ContactPage() {
                   <div className="text-gray-600">ساعت کاری</div>
                   <div className="text-gray-800 text-base md:text-lg">{(b.openTime?.slice(0,5) || '—')} تا {(b.closeTime?.slice(0,5) || '—')}</div>
                 </div>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <button onClick={() => handleShare(b)} className="px-4 py-2 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition">
+                  اشتراک‌گذاری لوکیشن
+                </button>
               </div>
             </div>
             <div className="min-h-[280px]">
