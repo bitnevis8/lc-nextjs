@@ -187,6 +187,24 @@ export const API_ENDPOINTS = {
     update: (id) => `${API_BASE_URL}/branch/update/${id}`,
     delete: (id) => `${API_BASE_URL}/branch/delete/${id}`,
   },
+  // قیمت‌ها
+  pricing: {
+    base: `${API_BASE_URL}/pricing`,
+    categories: {
+      getAll: `${API_BASE_URL}/pricing/categories/getAll`,
+      getById: (id) => `${API_BASE_URL}/pricing/categories/getOne/${id}`,
+      create: `${API_BASE_URL}/pricing/categories/create`,
+      update: (id) => `${API_BASE_URL}/pricing/categories/update/${id}`,
+      delete: (id) => `${API_BASE_URL}/pricing/categories/delete/${id}`,
+    },
+    devices: {
+      getAll: (categoryId) => `${API_BASE_URL}/pricing/devices/getAll${categoryId ? `?categoryId=${categoryId}` : ''}`,
+      getById: (id) => `${API_BASE_URL}/pricing/devices/getOne/${id}`,
+      create: `${API_BASE_URL}/pricing/devices/create`,
+      update: (id) => `${API_BASE_URL}/pricing/devices/update/${id}`,
+      delete: (id) => `${API_BASE_URL}/pricing/devices/delete/${id}`,
+    }
+  },
   // کلاس تگ‌ها - حذف شده
   classTags: {
     base: `${API_BASE_URL}/__removed_articles__/class-tags`,

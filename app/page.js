@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Slider from './components/ui/Slider/Slider';
+import { Suspense } from 'react';
+import HomePricingCategories from './components/HomePricingCategories';
 
 export default async function Home() {
   return (
@@ -50,11 +52,7 @@ export default async function Home() {
                 <Link href="/auth/register" className="px-5 py-3 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition">زمان های نوبت دهی</Link>
                 <Link href="/contact" className="px-5 py-3 rounded-lg border border-rose-300 text-rose-700 hover:bg-rose-50 transition">ارتباط با ما</Link>
               </div>
-              <div className="mt-6 flex items-center gap-6 text-sm text-gray-900">
-                <div className="flex items-center gap-2"><span>✓</span><span>بدون دوران نقاهت</span></div>
-                <div className="flex items-center gap-2"><span>✓</span><span>نتیجه سریع و قابل‌مشاهده</span></div>
-                <div className="flex items-center gap-2"><span>✓</span><span>مناسب انواع پوست</span></div>
-              </div>
+              
             </div>
             <div className="relative order-1 md:order-2">
               <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-gray-200">
@@ -74,32 +72,15 @@ export default async function Home() {
       {/* Branches CTA */}
       <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          {/* Gallery slider */}
-          <div className="mb-10">
-            <Slider
-              images={[
-                { src: '/images/gallery/1.jpg', alt: 'Laser Clinic gallery 1' },
-                { src: '/images/gallery/2.jpg', alt: 'Laser Clinic gallery 2' },
-              ]}
-              autoAdvanceMs={6000}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <div>
-              <h3 className="text-xl font-bold text-black">برای گرفتن نوبت بر روی ارتباط با ما کلیک کنید</h3>
-              <p className="text-black mt-2">آدرس، تلفن و ساعت کاری شعب ما را ببینید و با ما در ارتباط باشید.</p>
-              <div className="mt-4">
-                <Link href="/contact" className="px-4 py-2 rounded-lg bg-black text-white hover:opacity-80 transition">ارتباط با ما</Link>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-gray-200 p-4 bg-white">
-              <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center ">
+            <div className="rounded-2xl w-full    border border-gray-200 p-4 ">
+              <div className="grid grid-cols-2 gap-3 text-sm ">
                 <div>
                   <div className="text-black">ساعت کاری</div>
                   <div className="text-black">۱۱:۰۰ تا ۲۱:۰۰</div>
                 </div>
                 <div>
-                  <div className="text-black">مدیریت پایخان</div>
+                  <div className="text-black">مدیریت پایخوان</div>
                   <div className="text-black">09376903949</div>
                 </div>
                 <div>
@@ -113,6 +94,34 @@ export default async function Home() {
               </div>
             </div>
           </div>
+
+          {/* Gallery slider moved below */}
+          <div className="mt-10">
+            <Slider
+              images={[
+                { src: '/images/gallery/1.jpg', alt: 'Laser Clinic gallery 1' },
+                { src: '/images/gallery/2.jpg', alt: 'Laser Clinic gallery 2' },
+              ]}
+              autoAdvanceMs={6000}
+            />
+          </div>
+
+          {/* CTA moved below slider */}
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/contact"
+              className="px-6 py-3 w-full text-center rounded-xl text-white font-semibold bg-gradient-to-l from-rose-600 via-pink-600 to-fuchsia-600 shadow hover:opacity-90 transition"
+            >
+              ارتباط با ما
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing teaser */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+          <HomePricingCategories />
         </div>
       </section>
 
@@ -138,7 +147,7 @@ export default async function Home() {
               </div>
             ))}
           </div>
-        </div>
+      </div>
       </section>
 
       {/* Why Us section removed as requested */}
