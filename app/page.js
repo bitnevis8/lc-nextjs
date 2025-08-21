@@ -48,10 +48,12 @@ export default async function Home() {
                   </ul>
                 </div>
               </div>
+              {/*
               <div className="mt-6 flex items-center gap-3">
                 <Link href="/auth/register" className="px-5 py-3 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition">زمان های نوبت دهی</Link>
                 <Link href="/contact" className="px-5 py-3 rounded-lg border border-rose-300 text-rose-700 hover:bg-rose-50 transition">ارتباط با ما</Link>
               </div>
+              */}
               
             </div>
             <div className="relative order-1 md:order-2">
@@ -96,6 +98,7 @@ export default async function Home() {
           </div>
 
           {/* Gallery slider moved below */}
+          {/**
           <div className="mt-10">
             <Slider
               images={[
@@ -105,6 +108,7 @@ export default async function Home() {
               autoAdvanceMs={6000}
             />
           </div>
+          */}
 
           {/* CTA moved below slider */}
           <div className="mt-6 flex justify-center">
