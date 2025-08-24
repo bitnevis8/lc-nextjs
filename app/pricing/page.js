@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 export default function PricingPage() {
   const [categories, setCategories] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [devices, setDevices] = useState([]);
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -49,8 +51,18 @@ export default function PricingPage() {
     }
   };
 
+  const loadServices = async (deviceId) => {
+    if (!deviceId) return;
+    try {
+      const res = await fetch(`/api/pricing/services/getAll?deviceId=${deviceId}`);
+      const json = await res.json();
+      if (json.success) setServices(json.data || []);
+    } catch {}
+  };
+
   useEffect(() => { loadCategories(); }, []);
   useEffect(() => { if (selectedCategoryId) loadDevices(selectedCategoryId); }, [selectedCategoryId]);
+  useEffect(() => { if (devices[0]?.id) loadServices(devices[0].id); }, [devices]);
 
   return (
     <main className="min-h-screen bg-white">
@@ -71,22 +83,40 @@ export default function PricingPage() {
           ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
           {loading ? (
             <div className="text-gray-600">در حال بارگذاری...</div>
           ) : (
             devices.map((d) => (
-              <div key={d.id} className="rounded-2xl border border-gray-200 p-4 bg-white">
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border">
+              <div key={d.id} className="rounded-2xl border border-gray-200 p-4 bg-white lg:col-span-1">
+                <div className="relative w-full overflow-hidden rounded-xl border aspect-[4/3] sm:aspect-video md:aspect-[3/2] lg:aspect-[4/3]">
                   {d.imageUrl ? (
-                    <img src={d.imageUrl} alt={d.title} className="w-full h-full object-cover" />
+                    <Image
+                      src={d.imageUrl}
+                      alt={d.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover"
+                      priority={false}
+                    />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">بدون تصویر</div>
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-sm bg-gray-50">بدون تصویر</div>
                   )}
                 </div>
                 <div className="mt-3 text-black font-semibold">{d.title}</div>
                 <div className="mt-1 text-gray-700 text-sm">{d.description || ''}</div>
-                <div className="mt-2 text-rose-700 font-bold">{(d.price ?? '').toLocaleString?.() || d.price} تومان</div>
+                {!!d.price && (
+                  <div className="mt-2 text-black font-bold">{(d.price ?? '').toLocaleString?.() || d.price} تومان</div>
+                )}
+                {/* Services list for this device */}
+                <div className="mt-4 space-y-2">
+                  {services.filter(s => s.deviceId === d.id).map(s => (
+                    <div key={s.id} className="flex items-center justify-between rounded-lg border p-2">
+                      <div className="text-sm text-black">{s.title}</div>
+                      <div className="text-sm font-semibold text-black">{(s.price ?? '').toLocaleString?.() || s.price} تومان</div>
+                    </div>
+                  ))}
+                </div>
                 <div className="mt-3">
                   <Link href="/contact" className="px-3 py-2 rounded-lg bg-black text-white">دریافت نوبت</Link>
                 </div>

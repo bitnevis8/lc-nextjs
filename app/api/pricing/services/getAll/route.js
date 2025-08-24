@@ -1,8 +1,11 @@
 import { API_ENDPOINTS } from '@/app/config/api';
 
-export async function GET() {
+export async function GET(request) {
   try {
-    const backendResponse = await fetch(API_ENDPOINTS.pricing.categories.getAll, { cache: 'no-store' });
+    const { searchParams } = new URL(request.url);
+    const deviceId = searchParams.get('deviceId');
+    const url = API_ENDPOINTS.pricing.services.getAll(deviceId || undefined);
+    const backendResponse = await fetch(url, { cache: 'no-store' });
     const contentType = backendResponse.headers.get('content-type') || '';
     const isJson = contentType.includes('application/json');
     const data = isJson ? await backendResponse.json() : { success: false, message: 'invalid response', data: null };

@@ -57,7 +57,7 @@ export default async function Home() {
               
             </div>
             <div className="relative order-1 md:order-2">
-              <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-gray-200">
+              <div className="rounded-3xl overflow-hidden shadow-lg ring-1 ring-gray-200">
                 <img src="/images/entertainment/fortune-telling/hafez/logo.png" alt="laser" className="w-full object-cover" />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white/80 backdrop-blur shadow-xl rounded-2xl p-4 border border-gray-200">
@@ -74,24 +74,24 @@ export default async function Home() {
       {/* Branches CTA */}
       <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center ">
-            <div className="rounded-2xl w-full    border border-gray-200 p-4 ">
-              <div className="grid grid-cols-2 gap-3 text-sm ">
-                <div>
-                  <div className="text-black">ساعت کاری</div>
-                  <div className="text-black">۱۱:۰۰ تا ۲۱:۰۰</div>
+          <div className="grid grid-cols-1 gap-6 items-center">
+            <div className="rounded-2xl w-full  -gray-200 p-6 bg-white">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="rounded-xl border border-gray-200 p-4">
+                  <div className="text-black font-semibold">ساعت کاری</div>
+                  <div className="text-black mt-1">۱۱:۰۰ تا ۲۱:۰۰</div>
                 </div>
-                <div>
-                  <div className="text-black">مدیریت پایخوان</div>
-                  <div className="text-black">09376903949</div>
+                <div className="rounded-xl border border-gray-200 p-4">
+                  <div className="text-black font-semibold">مدیریت پایخوان</div>
+                  <div className="text-black mt-1">09376903949</div>
                 </div>
-                <div>
-                  <div className="text-black">مشاوره رایگان</div>
-                  <div className="text-black">رزرو آنلاین</div>
+                <div className="rounded-xl border border-gray-200 p-4">
+                  <div className="text-black font-semibold">مشاوره رایگان</div>
+                  <div className="text-black mt-1">رزرو آنلاین</div>
                 </div>
-                <div>
-                  <div className="text-black">تخفیف ویژه</div>
-                  <div className="text-black">پکیج‌های ترکیبی</div>
+                <div className="rounded-xl border border-gray-200 p-4">
+                  <div className="text-black font-semibold">تخفیف ویژه</div>
+                  <div className="text-black mt-1">پکیج‌های ترکیبی</div>
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default async function Home() {
           <div className="mt-6 flex justify-center">
             <Link
               href="/contact"
-              className="px-6 py-3 w-full text-center rounded-xl text-white font-semibold bg-gradient-to-l from-rose-600 via-pink-600 to-fuchsia-600 shadow hover:opacity-90 transition"
+              className="px-6 py-3 w-full text-center rounded-xl text-black font-semibold bg-white border border-gray-200 shadow hover:bg-gray-50 transition"
             >
               ارتباط با ما
             </Link>

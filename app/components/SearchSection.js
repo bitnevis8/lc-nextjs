@@ -17,8 +17,8 @@ export default function SearchSection() {
         <Image
           src="/logo.png"
           alt="لوگو سایت"
-          width={240}
-          height={240}
+          width={320}
+          height={320}
           className="object-contain"
           priority
         />

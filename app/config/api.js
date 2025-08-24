@@ -203,6 +203,13 @@ export const API_ENDPOINTS = {
       create: `${API_BASE_URL}/pricing/devices/create`,
       update: (id) => `${API_BASE_URL}/pricing/devices/update/${id}`,
       delete: (id) => `${API_BASE_URL}/pricing/devices/delete/${id}`,
+    },
+    services: {
+      getAll: (deviceId) => `${API_BASE_URL}/pricing/services/getAll${deviceId ? `?deviceId=${deviceId}` : ''}`,
+      getById: (id) => `${API_BASE_URL}/pricing/services/getOne/${id}`,
+      create: `${API_BASE_URL}/pricing/services/create`,
+      update: (id) => `${API_BASE_URL}/pricing/services/update/${id}`,
+      delete: (id) => `${API_BASE_URL}/pricing/services/delete/${id}`,
     }
   },
   // کلاس تگ‌ها - حذف شده
